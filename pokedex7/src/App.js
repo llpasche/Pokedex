@@ -1,14 +1,13 @@
 
 import RoutesApp from "./routes/Routes";
-import React from "react";
-import PokemonCard from "./components/PokemonCard/PokemonCard";
-import Sprites from "./components/Sprites/Sprites";
-import Stats from "./components/Stats/Stats";
+import React, { useState } from "react";
 import "./App.css"
 import Header from "./components/header/Header";
 import { createGlobalStyle } from 'styled-components';
 import { ThemeProvider } from "@emotion/react";
 import theme from "./constants/theme";
+import {ContextPokedex} from "./contextPokedex"
+
 
  
 // Estilos definidos aqui serão aplicados a toda a aplicação
@@ -17,18 +16,21 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
+    font-family: 'Pokemon'
   }
 `;
 
 export default function App() {
+
+  const [pokedex, setPokedex] = useState([])
+
   return (
     <ThemeProvider theme={theme}>
-    <div>
+    <ContextPokedex.Provider value={[pokedex, setPokedex]}>
       <GlobalStyle/>
-      <RoutesApp />
       <Header />
-      <h1>App</h1>
-    </div>
+      <RoutesApp />
+    </ContextPokedex.Provider>
     </ThemeProvider>
   );
 }

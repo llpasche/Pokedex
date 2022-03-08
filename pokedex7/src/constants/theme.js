@@ -6,6 +6,15 @@ const theme = createTheme({
     palette:{
         primary:{
             main: primaryColor
+        },
+        secondary:{
+            main: secondaryColor
+        },
+        terciary:{
+            main: terciaryColor
+        },
+        neutral:{
+            main: neutralColor
         }
     }
   });
