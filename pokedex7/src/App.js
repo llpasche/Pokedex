@@ -1,7 +1,9 @@
 
-=======
 import RoutesApp from "./routes/Routes";
 import React from "react";
+import PokemonCard from "./components/PokemonCard/PokemonCard";
+import Sprites from "./components/Sprites/Sprites";
+import Stats from "./components/Stats/Stats";
 import "./App.css"
 import Header from "./components/header/Header";
 import { createGlobalStyle } from 'styled-components';
