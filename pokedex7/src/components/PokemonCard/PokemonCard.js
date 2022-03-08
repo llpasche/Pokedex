@@ -8,7 +8,7 @@ import { useRequestData2 } from '../../hooks/useRequestData';
 import theme from '../../constants/theme';
 import { gotoPokemonDetailPage } from '../../routes/coordinator';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ContextPokedex } from '../../contextPokedex';
 
 
@@ -18,8 +18,14 @@ const PokemonCard = (props) => {
     
     const [pokedex,setPokedex] = useContext(ContextPokedex)
     
+    const [disable, setDisable] = useState(false)
+
     const onClickAdd = (name, url, sprite,pokedex,setPokedex) => {
-      
+      if (disable) {
+        setDisable(false)
+      } else {
+        setDisable(true)
+      }
       const novoPokemon = {
         name: name, 
         url: url,
@@ -47,7 +53,13 @@ const PokemonCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions sx={{backgroundColor: theme.palette.neutral.main}}>
+        {disable?
+        
+        <Button disabled variant="contained" size="small" color='secondary'>Adicionar</Button>  
+        :
         <Button onClick={() => onClickAdd(props.name, props.url, pokemonSprite, pokedex, setPokedex)} variant="contained" size="small" color='secondary'>Adicionar</Button>
+        }
+        
         <Button onClick={() => gotoPokedex(props.name)} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
       </CardActions>
     </Card>
