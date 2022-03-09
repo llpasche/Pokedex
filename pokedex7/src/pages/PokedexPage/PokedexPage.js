@@ -5,9 +5,12 @@ import { HomePageContainer } from "../HomePage/styled";
 
 export default function PokedexPage() {
   const [pokedex, setPokedex] = useContext(ContextPokedex);
-  console.log(pokedex)
 
-  const mappedPokedex = pokedex?.map((pokemon)=>{
+  localStorage.setItem('pokedex', JSON.stringify(pokedex));
+  let pokedexStorage = localStorage.getItem("pokedex")
+  let pokedexStorageObj = JSON.parse(pokedexStorage);
+
+  const mappedPokedex = pokedexStorageObj?.map((pokemon)=>{
     return <PokemonCard key={pokemon.name} name={pokemon.name} url={pokemon.url}/>
   })
   return (
