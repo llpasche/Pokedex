@@ -7,6 +7,7 @@ import theme from "./constants/theme";
 import { ContextPokedex } from "./contextPokedex";
 import { terciaryColor } from "./constants/colors";
 import Header from "./components/header/Header";
+import GlobalState from "./GlobalState";
 
 // Estilos definidos aqui serão aplicados a toda a aplicação
 const GlobalStyle = createGlobalStyle`
@@ -18,15 +19,17 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function App() {
-  const [pokedex, setPokedex] = useState([]);
+  /* const [pokedex, setPokedex] = useState([]); */
 
   return (
     <ThemeProvider theme={theme}>
-      <ContextPokedex.Provider value={[pokedex, setPokedex]}>
+      {/* <ContextPokedex.Provider value={[pokedex, setPokedex]}> */}
+      <GlobalState>
         <GlobalStyle />
         <Header />
         <RoutesApp />
-      </ContextPokedex.Provider>
+      </GlobalState>
+      {/* </ContextPokedex.Provider> */}
     </ThemeProvider>
   );
 }

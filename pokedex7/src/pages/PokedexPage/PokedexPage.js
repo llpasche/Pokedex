@@ -2,11 +2,14 @@ import { useContext } from "react";
 import PokemonCard from "../../components/PokemonCard/PokemonCard";
 import { ContextPokedex } from "../../contextPokedex";
 import { HomePageContainer } from "../HomePage/styled";
+import GlobalStateContext from "../../GlobalStateContext";
 
 export default function PokedexPage() {
-  const [pokedex, setPokedex] = useContext(ContextPokedex);
+  /* const {pokedex, setPokedex} = useContext(ContextPokedex); */
 
-  localStorage.setItem('pokedex', JSON.stringify(pokedex));
+  const {states, setters} = useContext(GlobalStateContext)
+
+  localStorage.setItem('pokedex', JSON.stringify(states.pokedex));
   let pokedexStorage = localStorage.getItem("pokedex")
   let pokedexStorageObj = JSON.parse(pokedexStorage);
 
