@@ -5,5 +5,5 @@ export const HomePageContainer = styled.div`
     margin: 50px auto;
     display: flex;
     flex-wrap: wrap;
-    gap: 5%;
+    gap: 3%;
 `

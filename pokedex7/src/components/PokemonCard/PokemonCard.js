@@ -11,6 +11,7 @@ import { gotoPokemonDetailPage } from '../../routes/coordinator';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { ContextPokedex } from '../../contextPokedex';
+import { flexbox } from '@mui/system';
 
 
 const PokemonCard = (props) => {
@@ -43,7 +44,7 @@ const PokemonCard = (props) => {
   return (
     <Card
       sx={{
-        maxWidth: 250,
+        width: 280,
         marginBottom: 5,
         color: theme.palette.terciary.main,
       }}
@@ -51,7 +52,7 @@ const PokemonCard = (props) => {
       <CardMedia
         component="img"
         alt="Imagem Pokemon"
-        height="200"
+        height="250"
         image={pokemonSprite}
       />
       <CardContent
@@ -66,15 +67,15 @@ const PokemonCard = (props) => {
           {props.name}
         </Typography>
       </CardContent>
-      <CardActions sx={{backgroundColor: theme.palette.neutral.main}}>
+      <CardActions sx={{backgroundColor: theme.palette.neutral.main, display: flexbox, justifyContent: 'space-around'}}>
         {disable?
         
-        <Button disabled variant="contained" size="small" color='secondary'>Adicionar</Button>  
+        <Button disabled variant="contained" size="large" color='secondary' sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}}>Adicionar</Button>  
         :
-        <Button onClick={() => onClickAdd(props.name, props.url, pokemonSprite, pokedex, setPokedex)} variant="contained" size="small" color='secondary'>Adicionar</Button>
+        <Button onClick={() => onClickAdd(props.name, props.url, pokemonSprite, pokedex, setPokedex)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Adicionar</Button>
         }
         
-        <Button onClick={() => gotoPokedex(props.name)} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
+        <Button onClick={() => gotoPokedex(props.name)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
       </CardActions>
     </Card>
   );
