@@ -1,3 +1,4 @@
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -35,20 +36,33 @@ const PokemonCard = (props) => {
       console.log(pokedex)
     }
 
-    const gotoPokedex = (name) => {
-      gotoPokemonDetailPage(navigate,name)
-    }
+  const gotoPokedex = (name) => {
+    gotoPokemonDetailPage(navigate, name);
+  };
 
-    return (
-    <Card sx={{ maxWidth: 250, marginBottom: 5, color: theme.palette.terciary.main}}>
-      <CardMedia 
+  return (
+    <Card
+      sx={{
+        maxWidth: 250,
+        marginBottom: 5,
+        color: theme.palette.terciary.main,
+      }}
+    >
+      <CardMedia
         component="img"
         alt="Imagem Pokemon"
         height="200"
         image={pokemonSprite}
       />
-      <CardContent sx={{ textAlign: 'center', backgroundColor: theme.palette.neutral.main, borderTopLeftRadius: 5, borderTopRightRadius: 5}}> 
-        <Typography gutterBottom variant="h5" component="div" color='neutral' >
+      <CardContent
+        sx={{
+          textAlign: "center",
+          backgroundColor: theme.palette.neutral.main,
+          borderTopLeftRadius: 5,
+          borderTopRightRadius: 5,
+        }}
+      >
+        <Typography gutterBottom variant="h5" component="div" color="neutral" sx={{fontFamily: "Pokemon"}}>
           {props.name}
         </Typography>
       </CardContent>
@@ -63,7 +77,7 @@ const PokemonCard = (props) => {
         <Button onClick={() => gotoPokedex(props.name)} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
       </CardActions>
     </Card>
-    )
-}
+  );
+};
 
-export default PokemonCard
+export default PokemonCard;
