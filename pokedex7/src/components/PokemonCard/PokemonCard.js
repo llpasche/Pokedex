@@ -1,31 +1,40 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { useRequestData2 } from "../../hooks/useRequestData";
-import theme from "../../constants/theme";
-import { gotoPokemonDetailPage } from "../../routes/coordinator";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { ContextPokedex } from "../../contextPokedex";
+
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { useRequestData2 } from '../../hooks/useRequestData';
+import theme from '../../constants/theme';
+import { gotoPokemonDetailPage } from '../../routes/coordinator';
+import { useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { ContextPokedex } from '../../contextPokedex';
+
 
 const PokemonCard = (props) => {
-  const navigate = useNavigate();
-  const pokemonSprite = useRequestData2([], props.url);
+    const navigate = useNavigate()
+    const pokemonSprite = useRequestData2([], props.url)
+    
+    const [pokedex,setPokedex] = useContext(ContextPokedex)
+    
+    const [disable, setDisable] = useState(false)
 
-  const [pokedex, setPokedex] = useContext(ContextPokedex);
-
-  const onClickAdd = (name, url, sprite, pokedex, setPokedex) => {
-    const novoPokemon = {
-      name: name,
-      url: url,
-      sprite: sprite,
-    };
-    const pokemons = [...pokedex, novoPokemon];
-    setPokedex(pokemons);
-  };
+    const onClickAdd = (name, url, sprite,pokedex,setPokedex) => {
+      if (disable) {
+        setDisable(false)
+      } else {
+        setDisable(true)
+      }
+      const novoPokemon = {
+        name: name, 
+        url: url,
+        sprite: sprite}
+      const pokemons = [...pokedex, novoPokemon]
+      setPokedex(pokemons)
+      console.log(pokedex)
+    }
 
   const gotoPokedex = (name) => {
     gotoPokemonDetailPage(navigate, name);
@@ -57,31 +66,15 @@ const PokemonCard = (props) => {
           {props.name}
         </Typography>
       </CardContent>
-      <CardActions sx={{ backgroundColor: theme.palette.neutral.main }}>
-        <Button
-          onClick={() =>
-            onClickAdd(
-              props.name,
-              props.url,
-              pokemonSprite,
-              pokedex,
-              setPokedex
-            )
-          }
-          variant="contained"
-          size="small"
-          color="secondary"
-        >
-          Adicionar
-        </Button>
-        <Button
-          onClick={() => gotoPokedex(props.name)}
-          variant="contained"
-          size="small"
-          color="secondary"
-        >
-          Ver Detalhes
-        </Button>
+      <CardActions sx={{backgroundColor: theme.palette.neutral.main}}>
+        {disable?
+        
+        <Button disabled variant="contained" size="small" color='secondary'>Adicionar</Button>  
+        :
+        <Button onClick={() => onClickAdd(props.name, props.url, pokemonSprite, pokedex, setPokedex)} variant="contained" size="small" color='secondary'>Adicionar</Button>
+        }
+        
+        <Button onClick={() => gotoPokedex(props.name)} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
       </CardActions>
     </Card>
   );
