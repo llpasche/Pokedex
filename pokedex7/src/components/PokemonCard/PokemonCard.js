@@ -21,12 +21,16 @@ const PokemonCard = (props) => {
     const [pokedex,setPokedex] = useContext(ContextPokedex)
     
     const [disable, setDisable] = useState(false)
+    
+    
 
     const onClickAdd = (name, url, sprite,pokedex,setPokedex) => {
       if (disable) {
         setDisable(false)
+        localStorage.setItem(name, disable)
       } else {
         setDisable(true)
+        localStorage.setItem(name, disable)
       }
       const novoPokemon = {
         name: name, 
@@ -34,7 +38,6 @@ const PokemonCard = (props) => {
         sprite: sprite}
       const pokemons = [...pokedex, novoPokemon]
       setPokedex(pokemons)
-      console.log(pokedex)
     }
 
   const gotoPokedex = (name) => {
@@ -68,7 +71,7 @@ const PokemonCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions sx={{backgroundColor: theme.palette.neutral.main, display: flexbox, justifyContent: 'space-around'}}>
-        {disable?
+        {localStorage.getItem(props.name)?
         
         <Button disabled variant="contained" size="large" color='secondary' sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}}>Adicionar</Button>  
         :
