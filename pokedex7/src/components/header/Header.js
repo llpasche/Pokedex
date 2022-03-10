@@ -3,20 +3,24 @@ import pokedex from "../../assets/pokedex-icon.svg";
 import { PokedexIcon, Title } from "./styled";
 import { neutralColor, terciaryColor } from "../../constants/colors";
 import { useNavigate } from "react-router-dom";
-import { goBack, gotoHomePage, gotoPokedexPage } from "../../routes/coordinator";
-import { useState } from "react";
-import HomePage from "../../pages/HomePage/HomePage";
+import { gotoHomePage, gotoPokedexPage } from "../../routes/coordinator";
+import { useEffect } from "react";
 import { useContext } from "react";
 import GlobalStateContext from "../../GlobalStateContext";
 
 const Header = () => {
   const navigate = useNavigate();
 
-  /* const [activePage, setActivePage] = useState("HomePage") */
 
   const {states, setters} = useContext(GlobalStateContext)
 
+  useEffect(() => {
+    if (states.activePage === "HomePage") {
+      gotoHomePage(navigate)  
+  }}, [])
+
   const switchPage = (navigate) => {
+    
     if (states.activePage === "HomePage") {
       gotoPokedexPage(navigate)
       setters.setActivePage("Pokedex")
