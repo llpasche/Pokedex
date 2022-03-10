@@ -1,53 +1,66 @@
-
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useRequestData2 } from '../../hooks/useRequestData';
-import theme from '../../constants/theme';
-import { gotoPokemonDetailPage } from '../../routes/coordinator';
-import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { ContextPokedex } from '../../contextPokedex';
-import { flexbox } from '@mui/system';
-import GlobalStateContext from '../../GlobalStateContext';
-
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { useRequestData2 } from "../../hooks/useRequestData";
+import theme from "../../constants/theme";
+import { gotoPokemonDetailPage } from "../../routes/coordinator";
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { ContextPokedex } from "../../contextPokedex";
+import { flexbox } from "@mui/system";
+import GlobalStateContext from "../../GlobalStateContext";
 
 const PokemonCard = (props) => {
-    const navigate = useNavigate()
-    const pokemonSprite = useRequestData2([], props.url)
-    
-    /* const [pokedex,setPokedex] = useContext(ContextPokedex) */
+  const navigate = useNavigate();
+  const pokemonSprite = useRequestData2([], props.url);
 
-    const {states, setters} = useContext(GlobalStateContext)
+  /* const [pokedex,setPokedex] = useContext(ContextPokedex) */
 
-    
-    const [disable, setDisable] = useState(false)
-    
-    
+  const { states, setters } = useContext(GlobalStateContext);
 
-    const onClickAdd = (name, url, sprite,pokedex,setPokedex) => {
-      if (disable) {
-        setDisable(false)
-        localStorage.setItem(name, disable)
-      } else {
-        setDisable(true)
-        localStorage.setItem(name, disable)
-      }
-      const novoPokemon = {
-        name: name, 
-        url: url,
-        sprite: sprite}
-      const pokemons = [...pokedex, novoPokemon]
-      setPokedex(pokemons)
+  const [disable, setDisable] = useState(false);
+
+  const onClickAdd = (name, url, sprite, pokedex, setPokedex) => {
+    if (disable) {
+      setDisable(false);
+      localStorage.setItem(name, disable);
+    } else {
+      setDisable(true);
+      localStorage.setItem(name, disable);
     }
+    const novoPokemon = {
+      name: name,
+      url: url,
+      sprite: sprite,
+    };
+    const pokemons = [...pokedex, novoPokemon];
+    localStorage.setItem("pokedex", JSON.stringify(pokemons));
+    setters.setPokedex(pokemons);
+    console.log(localStorage);
+  };
+ 
+
+  const onClickRemove = () => {
+    const pokeIndex = states.pokedex.findIndex((element) => {
+      return element.name === props.name;
+    });
+    const newPokedex = [...states.pokedex];
+    newPokedex.splice(pokeIndex, 1);
+    localStorage.removeItem(props.name);
+    setters.setPokedex(newPokedex);
+  };
 
   const gotoPokeDetail = (name) => {
-    setters.setActivePage("DetailPokemon")
+    setters.setActivePage("DetailPokemon");
     gotoPokemonDetailPage(navigate, name);
   };
+  
+  useEffect(()=>{
+   return 
+  },[])
 
   return (
     <Card
@@ -71,19 +84,74 @@ const PokemonCard = (props) => {
           borderTopRightRadius: 5,
         }}
       >
-        <Typography gutterBottom variant="h5" component="div" color="neutral" sx={{fontFamily: "Pokemon"}}>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          color="neutral"
+          sx={{ fontFamily: "Pokemon" }}
+        >
           {props.name}
         </Typography>
       </CardContent>
-      <CardActions sx={{backgroundColor: theme.palette.neutral.main, display: flexbox, justifyContent: 'space-around'}}>
-        {localStorage.getItem(props.name)?
-        
-        <Button disabled variant="contained" size="large" color='secondary' sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}}>Adicionar</Button>  
-        :
-        <Button onClick={() => onClickAdd(props.name, props.url, pokemonSprite, states.pokedex, setters.setPokedex)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Adicionar</Button>
-        }
-        
-        <Button onClick={() => gotoPokeDetail(props.name)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
+      <CardActions
+        sx={{
+          backgroundColor: theme.palette.neutral.main,
+          display: flexbox,
+          justifyContent: "space-around",
+        }}
+      >
+        {states.activePage === "HomePage" ? (
+          localStorage.getItem(props.name) ? (
+            <Button
+              disabled
+              variant="contained"
+              size="large"
+              color="secondary"
+              sx={{ fontFamily: "Pokemon", fontSize: 8, padding: 1.5 }}
+            >
+              Adicionar
+            </Button>
+          ) : (
+            <Button
+              onClick={() =>
+                onClickAdd(
+                  props.name,
+                  props.url,
+                  pokemonSprite,
+                  states.pokedex,
+                  setters.setPokedex
+                )
+              }
+              sx={{ fontFamily: "Pokemon", fontSize: 8, padding: 1.5 }}
+              variant="contained"
+              size="small"
+              color="secondary"
+            >
+              Adicionar
+            </Button>
+          )
+        ) : (
+          <Button
+            onClick={() => onClickRemove(states.pokedex, props.name)}
+            sx={{ fontFamily: "Pokemon", fontSize: 8, padding: 1.5 }}
+            variant="contained"
+            size="small"
+            color="secondary"
+          >
+            Remover
+          </Button>
+        )}
+
+        <Button
+          onClick={() => gotoPokeDetail(props.name)}
+          sx={{ fontFamily: "Pokemon", fontSize: 8, padding: 1.5 }}
+          variant="contained"
+          size="small"
+          color="secondary"
+        >
+          Ver Detalhes
+        </Button>
       </CardActions>
     </Card>
   );
