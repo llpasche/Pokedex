@@ -9,29 +9,27 @@ import { BASE_URL } from '../../constants/url';
 const Sprites = () => {
     
         const params = useParams()
-        console.log(params)
         
         const pokemonSprite = useRequestData3([], `${BASE_URL}/pokemon/${params.id}/`)
         const pokemonSpriteFront = pokemonSprite.front_default
-        const pokemonSpriteBack = pokemonSprite.back_default
-        console.log(pokemonSprite.front_default)    
+        const pokemonSpriteBack = pokemonSprite.back_default 
     
     return (
         
     <CardContainer>
-        <Card sx={{ maxWidth: 250 }}>
+        <Card sx={{ maxWidth: 300, maxHeight: 600  }}>
             <CardMedia
                 component="img"
                 alt="Imagem Pokemon"
-                height="200"
+                height="300"
                 image= {pokemonSpriteFront}
             />
         </Card>
-        <Card sx={{ maxWidth: 250 }}>
+        <Card sx={{ maxWidth: 300, maxHeight: 600  }}>
             <CardMedia
                 component="img"
                 alt="Imagem Pokemon"
-                height="200"
+                height="300"
                 image= {pokemonSpriteBack}
             />
             

@@ -89,3 +89,20 @@ export const useRequestData5 = (initialData, url, text) => {
 
     return data
 }
+
+export const useRequestData6 = (initialData, url, text) => {
+    const [data, setData] = useState(initialData)
+
+    useEffect(() => {
+        axios.get(url)
+        .then(resp => {
+            setData(resp.data.types)
+        })
+        .catch(err => {
+            console.log(err.response)
+            alert("Ocorreu um erro, tente novamente")
+        })
+    }, [url])
+
+    return data
+}

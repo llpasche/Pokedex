@@ -9,23 +9,24 @@ import { BASE_URL } from '../../constants/url';
 const Stats = () => {
     
   const params = useParams()
-  console.log(params)
   
   const pokemon = useRequestData4([], `${BASE_URL}/pokemon/${params.id}/`)
-  console.log(pokemon)
 
   const pokemonStats = pokemon.map(stat =>{
     return(
-      <Typography key= {stat.stat.name} gutterBottom variant="h5" component="div">
-      {stat.stat.name}: {stat.base_stat}
-    </Typography>
+        <Typography key= {stat.stat.name} gutterBottom variant="h6" component="div">
+        <strong>{stat.stat.name}:</strong> {stat.base_stat}
+      </Typography>
     )
   })
   
     return (
 
-    <Card sx={{ maxWidth: 250 }}>
-      <CardContent>
+    <Card sx={{ width: 400, maxHeight: 620 }}>
+      <CardContent sx={{display:"flex", flexDirection: "column", justifyContent: 'space-between', height:600}}>
+      <Typography gutterBottom variant="h5" component="div" sx={{textAlign: "center"}}>
+        <strong>Status</strong>
+      </Typography>
         {pokemonStats}
       </CardContent>
     </Card>
