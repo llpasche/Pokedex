@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRequestData2 } from "../../hooks/useRequestData";
 import theme from "../../constants/theme";
-import { gotoPokemonDetailPage } from "../../routes/coordinator";
+import { gotoPokedexPage, gotoPokemonDetailPage } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ContextPokedex } from "../../contextPokedex";
@@ -16,6 +16,8 @@ import GlobalStateContext from "../../GlobalStateContext";
 const PokemonCard = (props) => {
   const navigate = useNavigate();
   const pokemonSprite = useRequestData2([], props.url);
+
+  
 
   /* const [pokedex,setPokedex] = useContext(ContextPokedex) */
 
@@ -39,18 +41,21 @@ const PokemonCard = (props) => {
     const pokemons = [...pokedex, novoPokemon];
     localStorage.setItem("pokedex", JSON.stringify(pokemons));
     setters.setPokedex(pokemons);
-    console.log(localStorage);
   };
  
 
   const onClickRemove = () => {
-    const pokeIndex = states.pokedex.findIndex((element) => {
+    let pokedexStorage = localStorage.getItem("pokedex");
+    let pokedexStorageObj = JSON.parse(pokedexStorage);
+    const pokeIndex = pokedexStorageObj.findIndex((element) => {
       return element.name === props.name;
     });
-    const newPokedex = [...states.pokedex];
+    const newPokedex = [...pokedexStorageObj];
     newPokedex.splice(pokeIndex, 1);
     localStorage.removeItem(props.name);
+    localStorage.setItem("pokedex", JSON.stringify(newPokedex));
     setters.setPokedex(newPokedex);
+    
   };
 
   const gotoPokeDetail = (name) => {
@@ -58,9 +63,7 @@ const PokemonCard = (props) => {
     gotoPokemonDetailPage(navigate, name);
   };
   
-  useEffect(()=>{
-   return 
-  },[])
+  
 
   return (
     <Card
