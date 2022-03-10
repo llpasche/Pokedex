@@ -12,13 +12,17 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { ContextPokedex } from '../../contextPokedex';
 import { flexbox } from '@mui/system';
+import GlobalStateContext from '../../GlobalStateContext';
 
 
 const PokemonCard = (props) => {
     const navigate = useNavigate()
     const pokemonSprite = useRequestData2([], props.url)
     
-    const [pokedex,setPokedex] = useContext(ContextPokedex)
+    /* const [pokedex,setPokedex] = useContext(ContextPokedex) */
+
+    const {states, setters} = useContext(GlobalStateContext)
+
     
     const [disable, setDisable] = useState(false)
     
@@ -40,7 +44,8 @@ const PokemonCard = (props) => {
       setPokedex(pokemons)
     }
 
-  const gotoPokedex = (name) => {
+  const gotoPokeDetail = (name) => {
+    setters.setActivePage("DetailPokemon")
     gotoPokemonDetailPage(navigate, name);
   };
 
@@ -75,10 +80,10 @@ const PokemonCard = (props) => {
         
         <Button disabled variant="contained" size="large" color='secondary' sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}}>Adicionar</Button>  
         :
-        <Button onClick={() => onClickAdd(props.name, props.url, pokemonSprite, pokedex, setPokedex)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Adicionar</Button>
+        <Button onClick={() => onClickAdd(props.name, props.url, pokemonSprite, states.pokedex, setters.setPokedex)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Adicionar</Button>
         }
         
-        <Button onClick={() => gotoPokedex(props.name)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
+        <Button onClick={() => gotoPokeDetail(props.name)} sx={{fontFamily: "Pokemon", fontSize: 8, padding: 1.5}} variant="contained" size="small" color='secondary'>Ver Detalhes</Button>
       </CardActions>
     </Card>
   );
