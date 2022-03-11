@@ -5,9 +5,11 @@ import { useState } from "react";
 const GlobalState = (props) => {
     const [pokedex, setPokedex] = useState([]);
     const [activePage, setActivePage] = useState("HomePage")
+    const [pokemonInformation, setPokemonInformation] = useState([])
+    const [pokemonName, setPokemonName] = useState([])
 
-    const states = {pokedex, activePage}
-    const setters = {setPokedex, setActivePage}
+    const states = {pokedex, activePage, pokemonInformation, pokemonName}
+    const setters = {setPokedex, setActivePage, setPokemonInformation, setPokemonName}
 
     return (
         <GlobalStateContext.Provider value={{states, setters}}>
