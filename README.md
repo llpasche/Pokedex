@@ -1,9 +1,9 @@
 # POKEDEX
 
 Nome dos integrantes: 
-- https://github.com/Cruz-Guilherme
-- https://github.com/llpasche
-- https://github.com/enzopasche
+- Guilherme Cruz: https://github.com/Cruz-Guilherme
+- Lucas Pasche: https://github.com/llpasche
+- Enzo Pasche: https://github.com/enzopasche
 
 Link do Surge: disastrous-low.surge.sh
 
