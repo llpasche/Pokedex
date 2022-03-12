@@ -1,15 +1,18 @@
 # POKEDEX
 
 Nome dos integrantes: 
-- Pessoa 1
-- Pessoa 2
-- Pessoa 3
+- https://github.com/Cruz-Guilherme
+- https://github.com/llpasche
+- https://github.com/enzopasche
 
-Link do Surge: www.link.com.br
+Link do Surge: disastrous-low.surge.sh
+
 
 O que funciona:
-- Item 1
-- Item 2
+- Adição e remoção de Pokémons da Pokédex
+- Detalhes dos Pokémons
+- Sistema de batalhas entre os Pokémons
+- Lista da Pokédex com diferentes tipos de Pokémons
 
 O que não funciona: 
 - Item 3
