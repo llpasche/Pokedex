@@ -5,7 +5,8 @@ Nome dos integrantes:
 - Lucas Pasche: https://github.com/llpasche
 - Enzo Pasche: https://github.com/enzopasche
 
-Link do Surge: disastrous-low.surge.sh
+Link do Surge: pokedex-grupo7.surge.sh
+
 
 
 O que funciona:
@@ -13,6 +14,7 @@ O que funciona:
 - Detalhes dos Pokémons
 - Sistema de batalhas entre os Pokémons
 - Lista da Pokédex com diferentes tipos de Pokémons
+- Responsividade
 
 O que não funciona: 
 - Item 3
