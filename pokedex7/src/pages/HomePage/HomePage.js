@@ -6,9 +6,7 @@ import Pagination from "@mui/material/Pagination";
 import theme from "../../constants/theme";
 import { useState } from "react";
 
-
 export default function HomePage() {
-
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
     setPage(value);
@@ -42,6 +40,10 @@ export default function HomePage() {
           backgroundColor: theme.palette.neutral.main,
           padding: 2,
           borderRadius: 5,
+          "@media screen and (min-device-width : 320px) and (max-device-width : 480px)":
+            {
+              width: "73vw",
+            },
         }}
       />
       <HomePageContainer>{pokemonsList}</HomePageContainer>
