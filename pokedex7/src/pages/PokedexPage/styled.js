@@ -6,9 +6,16 @@ export const BattleContainer = styled.div`
     padding: 20px;
     background-color: white;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    
+    
+    @media screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        width: 73vw;
+        }
 `
 
 export const ButtonContainer = styled.div`
-    width: 200px;
     margin: 20px auto 0 auto;
+    justify-self: center
 `
