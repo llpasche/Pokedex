@@ -16,6 +16,4 @@ O que funciona:
 - Lista da Pokédex com diferentes tipos de Pokémons
 - Responsividade
 
-O que não funciona: 
-- Item 3
-- Item 4
+
